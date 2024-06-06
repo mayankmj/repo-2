@@ -14,6 +14,6 @@ jobs:
       
       # Create a text file with "Hello World" content
       - name: Create Hello World File
-        run: echo "Hello World" > hello.txt
-      
-      # Add your workflow steps here
+        run: |
+          echo "Hello World" > hello.txt
+          ls -l  # Optional: List files to verify the creation of hello.txt

@@ -10,8 +10,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.client_payload.sha }}
-
+        uses: actions/checkout@v2
+      
+      # Create a text file with "Hello World" content
+      - name: Create Hello World File
+        run: echo "Hello World" > hello.txt
+      
       # Add your workflow steps here

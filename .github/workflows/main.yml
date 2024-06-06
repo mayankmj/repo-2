@@ -1,11 +1,17 @@
-name: workflow_02
+name: My Target Workflow
+
 on:
   repository_dispatch:
-    types:
-      - trigger-workflow_02
+    types: [trigger-workflow]
+    
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-   # your existing steps of workflow
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+        ref: ${{ github.event.client_payload.sha }}
+
+      # Add your workflow steps here

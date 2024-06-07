@@ -1,21 +1,19 @@
-# .github/workflows/callable_workflow.yml
-name: Callable Workflow
+name: My Target Workflow
 
-on: 
-  workflow_call:
-    inputs:
-      name: 
-        description: 'Name for greeting'
-        required: true
-        type: 'string'
-    outputs:
-      greetingMessage: 
-        description: 'Generated greeting message'
-        value: ${{ steps.greeting.outputs.message }}
-
+on:
+  repository_dispatch:
+    types: [trigger-workflow]
+    
 jobs:
-  greet:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - id: greeting
-      run: echo "::set-output name=message::Hello, ${{ inputs.name }}"
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Create a text file with "Hello World" content
+      - name: Create Hello World File
+        run: |
+          echo "Hello World" > hello.txt
+          ls -l  # Optional: List files to verify the creation of hello.txt

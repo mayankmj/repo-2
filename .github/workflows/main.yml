@@ -12,7 +12,9 @@ jobs:
         uses: actions/checkout@v2
       
       # Create a text file with "Hello World" content
-      - name: Create Hello World File
-        run: |
-          echo "Hello World" > hello.txt
-          ls -l  # Optional: List files to verify the creation of hello.txt
+      - name: Create test file
+        run: echo hello World> test.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact

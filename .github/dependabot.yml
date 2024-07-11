@@ -9,5 +9,5 @@ updates:
   groups:
       all-pr:
         patterns:
-          - "action*"  
+          - "*"  
     

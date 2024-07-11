@@ -19,6 +19,6 @@ jobs:
         with:
           name: my-artifact
           path: test.txt
-      - uses: geekyeggo/delete-artifact@v2
+      - uses: geekyeggo/delete-artifact@v5
         with:
           name: my-artifact

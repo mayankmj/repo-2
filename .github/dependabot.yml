@@ -9,5 +9,4 @@ updates:
   groups:
       all-pr:
         patterns:
-          - "*"  
-    
+          - "*" 

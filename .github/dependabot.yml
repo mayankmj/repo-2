@@ -8,5 +8,5 @@ updates:
     time: "07:28"
   groups:
     name: "github-actions"
-    
+    versioning: "group"
     

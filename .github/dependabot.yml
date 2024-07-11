@@ -7,8 +7,6 @@ updates:
     interval: "daily"
     time: "07:28"
   groups:
-      dependencies:
-        pattern: "*"
-        update-types:
-          - "all"
+  production-dependencies:
+    dependency-type: "production"
     

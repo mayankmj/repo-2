@@ -1,24 +1,37 @@
-name: My Target Workflow
+# name: My Target Workflow
 
-on:
-  workflow_call:
+# on:
+#   workflow_call:
     
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
       
-      # Create a text file with "Hello World" content
-      - name: Create test file
-        run: echo hello World> test.txt
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: test.txt
-      - uses: geekyeggo/delete-artifact@v2
-        with:
-          name: my-artifact
+#       # Create a text file with "Hello World" content
+#       - name: Create test file
+#         run: echo hello World> test.txt
+#       - name: Upload Artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: my-artifact
+#           path: test.txt
+#       - uses: geekyeggo/delete-artifact@v2
+#         with:
+#           name: my-artifact
+
+name: Test Timeout
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Sleep for 2 minutes
+      run: sleep 2m
+

@@ -38,10 +38,14 @@ jobs:
         run: sleep 30s
 
       - name: Check approval status
-        if: ${{ failure() }}  # Execute only if previous step failed (timeout)
+        if: ${{ failure() }}  # Execute only if the previous step failed (timeout)
         run: |
           echo "Approval job status check after timeout"
+          echo "Workflow will be cancelled here"
+          exit 1  # Exit with an error code to force cancel the workflow
 
       - name: Final cleanup or additional steps
         if: always()  # Always execute, regardless of previous steps
+        run: |
+          echo "Final cleanup or additional steps"
 

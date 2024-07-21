@@ -1,58 +1,28 @@
-# name: My Target Workflow
-
-# on:
-#   workflow_call:
-    
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-      
-#       # Create a text file with "Hello World" content
-#       - name: Create test file
-#         run: echo hello World> test.txt
-#       - name: Upload Artifact
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: my-artifact
-#           path: test.txt
-#       - uses: geekyeggo/delete-artifact@v2
-#         with:
-#           name: my-artifact
-
-# name: Test Timeout
-# on: [push]
-# jobs:
-#   test:
-#     runs-on: ubuntu-latest
-#     timeout-minutes: 1
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v3
-#     - name: Sleep for 2 minutes
-#       run: sleep 2m
-
-name: Manual Approval Workflow
+name: My Target Workflow
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
 
 jobs:
-  myjob:
+  build:
     runs-on: ubuntu-latest
+    environment: stage  # Define the environment for the job
+
     steps:
-      - name: Manual Approval Step
-        uses: trstringer/manual-approval@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Create a text file with "Hello World" content
+      - name: Create test file
+        run: echo hello World > test.txt
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
         with:
-          secret: ${{ secrets.GITHUB_TOKEN }}
-          approvers: mayankmj  # Replace with your GitHub username
-          minimum-approvals: 1
-          issue-title: "Testing Manual Approval"
-          issue-body: "Please approve or deny this test workflow."
+          name: my-artifact
+          path: test.txt
 
-
+      - name: Use Custom Action to Delete Artifact
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: my-artifact

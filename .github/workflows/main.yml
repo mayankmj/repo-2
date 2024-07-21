@@ -41,7 +41,6 @@ jobs:
           script: |
             const startTime = parseInt(process.env.start_time);
             let currentTime = Math.floor(Date.now() / 1000);
-            # console.log(startTime)
             console.log(currentTime)
 
             while (!github.event || !github.event.workflow_run || github.event.workflow_run.conclusion === undefined && (currentTime - startTime) < 30) {

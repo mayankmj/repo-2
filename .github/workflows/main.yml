@@ -26,30 +26,30 @@ jobs:
         with:
           name: my-artifact
 
- timeout:
-  runs-on: ubuntu-latest  # Ensure this job runs after the approval job
+  timeout:
+    runs-on: ubuntu-latest  # Ensure this job runs after the approval job
 
-  steps:
-    - name: Set start time
-      id: set_start_time
-      run: echo "##startTime=$(date +%s)"
+    steps:
+      - name: Set start time
+        id: set_start_time
+        run: echo "##startTime=$(date +%s)"
 
-    - name: Check approval status with timeout
-      uses: actions/github-script@v6
-      with:
+      - name: Check approval status with timeout
+        uses: actions/github-script@v6
+        with:
         script: |
-          const startTime = parseInt(process.env.startTime);
-          let currentTime = Math.floor(Date.now() / 1000);
+            const startTime = parseInt(process.env.startTime);
+            let currentTime = Math.floor(Date.now() / 1000);
 
-          while (github.event.workflow_run.conclusion === undefined && (currentTime - startTime) < 30) {
-            console.log("Waiting for approval status (", (currentTime - startTime), "seconds passed)");
-            await new Promise(resolve => setTimeout(resolve, 5000));  # Wait for 5 seconds
-            currentTime = Math.floor(Date.now() / 1000);
-          }
+            while (github.event.workflow_run.conclusion === undefined && (currentTime - startTime) < 30) {
+              console.log("Waiting for approval status (", (currentTime - startTime), "seconds passed)");
+              await new Promise(resolve => setTimeout(resolve, 5000));  # Wait for 5 seconds
+              currentTime = Math.floor(Date.now() / 1000);
+            }
 
-          if (github.event.workflow_run.conclusion === undefined) {
-            core.setFailed('Approval job status undefined for more than 30 seconds!');
-            core.cancelWorkflow();
-          } else {
-            console.log("Approval job status received:", github.event.workflow_run.conclusion);
-          }
+            if (github.event.workflow_run.conclusion === undefined) {
+              core.setFailed('Approval job status undefined for more than 30 seconds!');
+              core.cancelWorkflow();
+            } else {
+              console.log("Approval job status received:", github.event.workflow_run.conclusion);
+            }

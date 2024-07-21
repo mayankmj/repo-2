@@ -29,8 +29,17 @@ jobs:
 
   # Timeout job
   timeout:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Or your preferred runner OS
     steps:
+      - name: Wait for context information
+        uses: actions/github-script@v6
+        with:
+          script: |
+            # Wait until context information is available
+            while (github.event === undefined) {
+              core.info("Waiting for context information...");
+              sleep(5);  # Adjust wait time as needed (seconds)
+            }
       - name: Check approval status
         uses: actions/github-script@v6
         with:
@@ -39,7 +48,7 @@ jobs:
               core.setFailed('Approval job not approved!');
             }
       - name: Wait for 24 hours
-        run: sleep 86400 # Sleeps for 24 hours (86400 seconds)
+        run: sleep 30  # Sleeps for 24 hours (86400 seconds)
       - name: Cancel workflow if not approved
         uses: actions/github-script@v6
         with:

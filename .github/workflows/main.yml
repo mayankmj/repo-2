@@ -47,7 +47,7 @@ jobs:
           export OWNER=$GITHUB_REPOSITORY_OWNER
           export REPO=$GITHUB_REPOSITORY
           export RUN_ID=$GITHUB_RUN_ID
-          export TOKEN="${{ secrets.GITHUB_TOKEN }}"  # or your personal access token
+          export TOKEN="${{ secrets.GITHU_TOKEN }}"  # or your personal access token
 
           # Construct the curl command to cancel the workflow run
           curl -L \

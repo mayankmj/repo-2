@@ -39,7 +39,8 @@ name: Manual Approval Workflow
 
 on:
   push:
-    branch: ["main"]:  # This event allows manual triggering
+    branches:
+      - main
 
 jobs:
   myjob:

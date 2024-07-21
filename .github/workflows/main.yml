@@ -39,9 +39,7 @@ jobs:
               core.setFailed('Approval job not approved!');
             }
       - name: Wait for 24 hours
-        uses: actions/runner@v3
-        with:
-          command: sleep 30  # Sleeps for 24 hours (86400 seconds)
+        run: sleep 86400 # Sleeps for 24 hours (86400 seconds)
       - name: Cancel workflow if not approved
         uses: actions/github-script@v6
         with:

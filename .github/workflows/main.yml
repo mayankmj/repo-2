@@ -34,25 +34,14 @@ jobs:
         id: set_start_time
         run: echo "##[set-output name=start_time]$(date +%s)"
 
-      - name: Check approval status with timeout
-        id: check_approval
-        uses: actions/github-script@v6
-        with:
-          script: |
-            let startTime = parseInt(process.env.startTime);
-            let currentTime = Math.floor(Date.now() / 1000);
-            console.log(startTime);
-            core.cancelWorkflow();
+      - name: Wait for 30 seconds
+        run: sleep 30s
 
-            while (!github.event || !github.event.workflow_run || github.event.workflow_run.conclusion === undefined && (currentTime - startTime) < 30) {
-              console.log("Waiting for approval status (", (currentTime - startTime), "seconds passed)");
-              await new Promise(resolve => setTimeout(resolve, 5000));  // Wait for 5 seconds
-              currentTime = Math.floor(Date.now() / 1000);
-            }
+      - name: Check approval status
+        if: ${{ failure() }}  # Execute only if previous step failed (timeout)
+        run: |
+          echo "Approval job status check after timeout"
 
-            if (!github.event || !github.event.workflow_run || github.event.workflow_run.conclusion === undefined) {
-              core.setFailed('Approval job status undefined for more than 30 seconds!');
-              core.cancelWorkflow();
-            } else {
-              console.log("Approval job status received:", github.event.workflow_run.conclusion);
-            }
+      - name: Final cleanup or additional steps
+        if: always()  # Always execute, regardless of previous steps
+

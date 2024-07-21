@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create test file
-        run: echo hello World > test.txt
+        run: echo "hello World" > test.txt
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
@@ -32,18 +32,18 @@ jobs:
     steps:
       - name: Set start time
         id: set_start_time
-        run: echo "##startTime=$(date +%s)"
+        run: echo "##[set-output name=start_time]$(date +%s)"
 
       - name: Check approval status with timeout
         uses: actions/github-script@v6
         with:
           script: |
-            const startTime = parseInt(process.env.startTime);
+            const startTime = parseInt(process.env.start_time);
             let currentTime = Math.floor(Date.now() / 1000);
 
             while (github.event.workflow_run.conclusion === undefined && (currentTime - startTime) < 30) {
               console.log("Waiting for approval status (", (currentTime - startTime), "seconds passed)");
-              await new Promise(resolve => setTimeout(resolve, 5000));  # Wait for 5 seconds
+              await new Promise(resolve => setTimeout(resolve, 5000));  // Wait for 5 seconds
               currentTime = Math.floor(Date.now() / 1000);
             }
 

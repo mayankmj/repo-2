@@ -44,10 +44,10 @@ jobs:
           echo "Initiating cancellation of the workflow run..."
 
           # Obtain necessary details for the cancellation
-          export OWNER=$GITHUB_REPOSITORY_OWNER
-          export REPO=$GITHUB_REPOSITORY
-          export RUN_ID=$GITHUB_RUN_ID
-          export TOKEN="${{ secrets.GITHU_TOKEN }}"  # or your personal access token
+          # export OWNER=$GITHUB_REPOSITORY_OWNER
+          # export REPO=$GITHUB_REPOSITORY
+          # export RUN_ID=$GITHUB_RUN_ID
+          export TOKEN="${{ secrets.GITHUB_TOKEN }}"  # or your personal access token
 
           # Construct the curl command to cancel the workflow run
           curl -L \
@@ -55,6 +55,6 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: Bearer $TOKEN" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            "https://api.github.com/repos/$OWNER/$REPO/actions/runs/$RUN_ID/cancel"
+            "https://api.github.com/repos/mayankmj/repo-2/actions/runs/${github.run_id}/cancel"
 
           exit 1  # Exit with an error code to force cancel the workflow

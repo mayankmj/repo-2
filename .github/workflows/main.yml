@@ -34,11 +34,11 @@ jobs:
         id: set_start_time
         run: echo "##[set-output name=start_time]$(date +%s)"
 
-      - name: Wait for 30 seconds
-        run: sleep 30s
+      - name: Wait for 15 seconds
+        run: sleep 15s
 
       - name: Check approval status
-        if: ${{ failure() }}  # Execute only if the previous step failed (timeout)
+        # if: ${{ failure() }}  # Execute only if the previous step failed (timeout)
         run: |
           echo "Approval job status check after timeout"
           echo "Initiating cancellation of the workflow run..."

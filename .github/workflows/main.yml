@@ -6,7 +6,7 @@ on:
 jobs:
   approval:
     runs-on: ubuntu-latest
-    environment: stage  # Define the environment for the job
+    environment: stage
 
     steps:
       - name: Checkout code
@@ -27,7 +27,7 @@ jobs:
           name: my-artifact
 
   timeout:
-    runs-on: ubuntu-latest  # Ensure this job runs after the approval job
+    runs-on: ubuntu-latest
 
     steps:
       - name: Set start time
@@ -35,19 +35,20 @@ jobs:
         run: echo "##[set-output name=start_time]$(date +%s)"
 
       - name: Check approval status with timeout
+        id: check_approval
         uses: actions/github-script@v6
         with:
           script: |
             const startTime = parseInt(process.env.start_time);
             let currentTime = Math.floor(Date.now() / 1000);
 
-            while (github.event.workflow_run.conclusion === undefined && (currentTime - startTime) < 30) {
+            while (!github.event || !github.event.workflow_run || github.event.workflow_run.conclusion === undefined && (currentTime - startTime) < 30) {
               console.log("Waiting for approval status (", (currentTime - startTime), "seconds passed)");
               await new Promise(resolve => setTimeout(resolve, 5000));  // Wait for 5 seconds
               currentTime = Math.floor(Date.now() / 1000);
             }
 
-            if (github.event.workflow_run.conclusion === undefined) {
+            if (!github.event || !github.event.workflow_run || github.event.workflow_run.conclusion === undefined) {
               core.setFailed('Approval job status undefined for more than 30 seconds!');
               core.cancelWorkflow();
             } else {

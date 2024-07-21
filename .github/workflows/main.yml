@@ -29,7 +29,6 @@ jobs:
 
   timeout:
     runs-on: ubuntu-latest
-    needs: approval
     steps:
       - name: Check approval status
         id: check-approval

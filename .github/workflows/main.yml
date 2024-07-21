@@ -50,7 +50,7 @@ jobs:
             }
       
       - name: Wait for 24 hours
-        run: sleep 86400  # Sleeps for 24 hours (86400 seconds)
+        run: sleep 20  # Sleeps for 24 hours (86400 seconds)
       
       - name: Cancel workflow if not approved
         uses: actions/github-script@v6

@@ -37,7 +37,7 @@ jobs:
       - name: Check approval status with timeout
         uses: actions/github-script@v6
         with:
-        script: |
+          script: |
             const startTime = parseInt(process.env.startTime);
             let currentTime = Math.floor(Date.now() / 1000);
 

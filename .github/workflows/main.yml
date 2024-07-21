@@ -11,8 +11,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      # Create a text file with "Hello World" content
+
       - name: Create test file
         run: echo hello World > test.txt
 
@@ -28,7 +27,7 @@ jobs:
           name: my-artifact
 
   timeout:
-    runs-on: ubuntu-latest # Ensure this job runs after the approval job
+    runs-on: ubuntu-latest  # Ensure this job runs after the approval job
 
     steps:
       - name: Wait for context information
@@ -40,7 +39,7 @@ jobs:
               console.log("Waiting for context information...");
               await new Promise(resolve => setTimeout(resolve, 5000));  // Adjust wait time as needed (milliseconds)
             }
-        
+
       - name: Check approval status
         uses: actions/github-script@v6
         with:
@@ -48,10 +47,10 @@ jobs:
             if (github.event.workflow_run.conclusion === 'waiting') {
               core.setFailed('Approval job not approved!');
             }
-      
-      - name: Wait for 24 hours
-        run: sleep 20  # Sleeps for 24 hours (86400 seconds)
-      
+
+      - name: Wait for 30 seconds
+        run: sleep 30  # Sleeps for 30 seconds
+
       - name: Cancel workflow if not approved
         uses: actions/github-script@v6
         with:

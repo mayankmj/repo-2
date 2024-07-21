@@ -41,11 +41,22 @@ jobs:
         if: ${{ failure() }}  # Execute only if the previous step failed (timeout)
         run: |
           echo "Approval job status check after timeout"
-          echo "Workflow will be cancelled here"
+          echo "Initiating cancellation of the workflow run..."
+
+          # Obtain necessary details for the cancellation
+          export OWNER=$GITHUB_REPOSITORY_OWNER
+          export REPO=$GITHUB_REPOSITORY
+          export RUN_ID=$GITHUB_RUN_ID
+
+          # Make API call to cancel the workflow run using curl
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/$OWNER/$REPO/actions/runs/$RUN_ID/cancel
+
           exit 1  # Exit with an error code to force cancel the workflow
 
       - name: Final cleanup or additional steps
         if: always()  # Always execute, regardless of previous steps
         run: |
           echo "Final cleanup or additional steps"
-

@@ -28,40 +28,28 @@ jobs:
           name: my-artifact
 
   timeout:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Or your preferred runner OS
     steps:
-      - name: Check approval status
-        id: check-approval
+      - name: Wait for context information
         uses: actions/github-script@v6
         with:
           script: |
-            // Check if the approval job was approved
-            const run = await github.rest.actions.listWorkflowRuns({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'main.yml',  // Update with your workflow file name
-              status: 'in_progress'
-            });
-            const currentRun = run.data.workflow_runs.find(run => run.id === context.runId);
-            if (currentRun && currentRun.conclusion !== 'success') {
-              throw new Error('Approval job not approved!');
+            # Wait until context information is available
+            while (github.event === undefined) {
+              core.info("Waiting for context information...");
+              sleep(5);  # Adjust wait time as needed (seconds)
             }
-
-      - name: Wait for 24 hours
-        run: sleep 30  # Sleeps for 24 hours (86400 seconds)
-
-      - name: Cancel workflow if not approved
-        if: ${{ steps.check-approval.outcome == 'failure' }}
+      - name: Check approval status
         uses: actions/github-script@v6
         with:
           script: |
-            const { data: { id: runId } } = await github.rest.actions.getWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: context.runId
-            });
-            await github.rest.actions.cancelWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: runId
-            });
+            if (github.event.workflow_run.conclusion === 'waiting') {
+              core.setFailed('Approval job not approved!');
+            }
+      - name: Wait for 24 hours
+        run: sleep 86400  # Sleeps for 24 hours (86400 seconds)
+      - name: Cancel workflow if not approved
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.cancelWorkflow();

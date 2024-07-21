@@ -26,33 +26,30 @@ jobs:
         with:
           name: my-artifact
 
-  timeout:
-    runs-on: ubuntu-latest  # Ensure this job runs after the approval job
+ timeout:
+  runs-on: ubuntu-latest  # Ensure this job runs after the approval job
 
-    steps:
-      - name: Wait for context information
-        uses: actions/github-script@v6
-        with:
-          script: |
-            // Wait until context information is available
-            while (github.event === undefined) {
-              console.log("Waiting for context information...");
-              await new Promise(resolve => setTimeout(resolve, 5000));  // Adjust wait time as needed (milliseconds)
-            }
+  steps:
+    - name: Set start time
+      id: set_start_time
+      run: echo "##startTime=$(date +%s)"
 
-      - name: Check approval status
-        uses: actions/github-script@v6
-        with:
-          script: |
-            if (github.event.workflow_run.conclusion === 'waiting') {
-              core.setFailed('Approval job not approved!');
-            }
+    - name: Check approval status with timeout
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const startTime = parseInt(process.env.startTime);
+          let currentTime = Math.floor(Date.now() / 1000);
 
-      - name: Wait for 30 seconds
-        run: sleep 30  # Sleeps for 30 seconds
+          while (github.event.workflow_run.conclusion === undefined && (currentTime - startTime) < 30) {
+            console.log("Waiting for approval status (", (currentTime - startTime), "seconds passed)");
+            await new Promise(resolve => setTimeout(resolve, 5000));  # Wait for 5 seconds
+            currentTime = Math.floor(Date.now() / 1000);
+          }
 
-      - name: Cancel workflow if not approved
-        uses: actions/github-script@v6
-        with:
-          script: |
+          if (github.event.workflow_run.conclusion === undefined) {
+            core.setFailed('Approval job status undefined for more than 30 seconds!');
             core.cancelWorkflow();
+          } else {
+            console.log("Approval job status received:", github.event.workflow_run.conclusion);
+          }

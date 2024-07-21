@@ -39,7 +39,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const startTime = (process.env.START_TIME);
+            const startTime = ${{ env.START_TIME }};
             let currentTime = Math.floor(Date.now() / 1000);
             console.log(startTime)
 

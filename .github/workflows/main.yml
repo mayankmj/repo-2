@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  build:
+  approval:
     runs-on: ubuntu-latest
     environment: stage  # Define the environment for the job
 
@@ -26,3 +26,24 @@ jobs:
         uses: geekyeggo/delete-artifact@v2
         with:
           name: my-artifact
+
+  # Timeout job
+  timeout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check approval status
+        uses: actions/github-script@v6
+        with:
+          script: |
+            if (github.event.workflow_run.conclusion === 'waiting') {
+              core.setFailed('Approval job not approved!');
+            }
+      - name: Wait for 24 hours
+        uses: actions/runner@v3
+        with:
+          command: sleep 30  # Sleeps for 24 hours (86400 seconds)
+      - name: Cancel workflow if not approved
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.cancelWorkflow();

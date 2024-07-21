@@ -35,6 +35,11 @@
 #     - name: Sleep for 2 minutes
 #       run: sleep 2m
 
+name: Manual Approval Workflow
+
+on:
+  workflow_dispatch:  # This event allows manual triggering
+
 jobs:
   myjob:
     runs-on: ubuntu-latest
@@ -43,9 +48,9 @@ jobs:
         uses: trstringer/manual-approval@v1
         with:
           secret: ${{ secrets.GITHUB_TOKEN }}
-          approvers: user1,user2,org-team1
+          approvers: mayankmj  # Replace with your GitHub username
           minimum-approvals: 1
-          issue-title: "Deploying v1.3.5 to prod from staging"
-          issue-body: "Please approve or deny the deployment of version v1.3.5."
+          issue-title: "Testing Manual Approval"
+          issue-body: "Please approve or deny this test workflow."
 
 

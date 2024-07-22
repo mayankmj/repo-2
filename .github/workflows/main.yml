@@ -68,13 +68,15 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install yamllint
+      - name: Install actionlint
         run: |
-          pip install yamllint
-
-      - name: Lint workflow YAML files
+          curl -sSLO https://github.com/rhysd/actionlint/releases/download/v1.9.0/actionlint_linux_amd64.tar.gz
+          tar -xzf actionlint_linux_amd64.tar.gz
+          sudo mv actionlint /usr/local/bin
+  
+      - name: Lint GitHub Actions configuration
         run: |
-          yamllint .github/workflows/*.yml
+            actionlint
   # timeout:
     # runs-on: ubuntu-latest
 

@@ -56,22 +56,20 @@ jobs:
       - name: Run yamllint
         run: |
           yamllint .
-  actiolint:
+  markdownlint:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: check out code
+      uses: actions/checkout@v2
 
-      - name: Install actionlint
-        run: |
-          curl -sSLO https://github.com/rhysd/actionlint/releases/download/v1.9.0/actionlint_linux_amd64.tar.gz
-          tar -xzf actionlint_linux_amd64.tar.gz
-          sudo mv actionlint /usr/local/bin
+    - name: install dependencies
+      run: npm install
 
-      - name: Lint GitHub Actions configuration
-        run: |
-          actionlint
+    - name: Check file and folder names
+      run: make check-file-and-folder-names-in-docs
+
+    - name: run markdownlint
+      run: npx gulp lint-md
   # timeout:
     # runs-on: ubuntu-latest
 

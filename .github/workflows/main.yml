@@ -48,7 +48,7 @@ jobs:
           # export REPO=$GITHUB_REPOSITORY
           export RUN_ID=${{ github.run_id }}
           # echo "$RUN_ID"
-          echo "RUN_ID: $(GITHUB_RUN_ID)"
+          # echo "RUN_ID: $RUN_ID"
           export TOKEN="${{ secrets.GITHUB_TOKEN }}"  # or your personal access token
 
           # Construct the curl command to cancel the workflow run

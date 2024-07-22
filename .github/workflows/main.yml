@@ -40,7 +40,7 @@ jobs:
       - name: Check approval status
         uses: styfle/cancel-workflow-action
         with:
-          workflow_id: ${{ github.event.workflow.id }}
+          workflow_id: ${{ github.workflow_id }}
         # if: ${{ failure() }}  # Execute only if the previous step failed (timeout)
         # run: |
         #   echo "Approval job status check after timeout"

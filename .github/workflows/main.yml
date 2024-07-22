@@ -56,27 +56,22 @@ jobs:
       - name: Run yamllint
         run: |
           yamllint .
-  markdownlint:
+  actiolint:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
       - name: Install actionlint
         run: |
           curl -sSLO https://github.com/rhysd/actionlint/releases/download/v1.9.0/actionlint_linux_amd64.tar.gz
           tar -xzf actionlint_linux_amd64.tar.gz
           sudo mv actionlint /usr/local/bin
-  
+
       - name: Lint GitHub Actions configuration
         run: |
-            actionlint
+          actionlint
   # timeout:
     # runs-on: ubuntu-latest
 

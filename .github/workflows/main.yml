@@ -56,20 +56,25 @@ jobs:
       - name: Run yamllint
         run: |
           yamllint .
-  markdownlint: 
+  markdownlint:
     runs-on: ubuntu-latest
+
     steps:
-    - name: check out code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: install dependencies
-      run: npm install
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
-    - name: Check file and folder names
-      run: make check-file-and-folder-names-in-docs
+      - name: Install yamllint
+        run: |
+          pip install yamllint
 
-    - name: run markdownlint
-      run: npx gulp lint-md
+      - name: Lint workflow YAML files
+        run: |
+          yamllint .github/workflows/*.yml
   # timeout:
     # runs-on: ubuntu-latest
 

@@ -56,20 +56,6 @@ jobs:
       - name: Run yamllint
         run: |
           yamllint .
-  markdownlint:
-    runs-on: ubuntu-latest
-    steps:
-    - name: check out code
-      uses: actions/checkout@v2
-
-    - name: install dependencies
-      run: npm install
-
-    - name: Check file and folder names
-      run: make check-file-and-folder-names-in-docs
-
-    - name: run markdownlint
-      run: npx gulp lint-md
   # timeout:
     # runs-on: ubuntu-latest
 

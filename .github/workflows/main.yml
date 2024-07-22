@@ -47,9 +47,6 @@ jobs:
           echo "Approval job status check after timeout"
           echo "Initiating cancellation of the workflow run..."
 
-          # Obtain necessary details for the cancellation
-          # export OWNER=$GITHUB_REPOSITORY_OWNER
-          # export REPO=$GITHUB_REPOSITORY
           export RUN_ID=${{ github.run_id }}
           # echo "$RUN_ID"
           echo "RUN_ID: $RUN_ID"
@@ -57,7 +54,6 @@ jobs:
           export TOKEN=${{ github.token }} 
           echo "$TOKEN"
           echo "END OF LINE"
-          # Construct the curl command to cancel the workflow run
           curl -L \
             -X POST \
             -H "Accept: application/vnd.github.v3+json" \

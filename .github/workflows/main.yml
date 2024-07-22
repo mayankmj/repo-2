@@ -38,7 +38,7 @@ jobs:
         run: sleep 30s
 
       - name: Check approval status
-        uses: styfle/cancel-workflow-action
+        uses: styfle/cancel-workflow-action@0.9.1
         with:
           workflow_id: ${{ github.workflow_id }}
         # if: ${{ failure() }}  # Execute only if the previous step failed (timeout)

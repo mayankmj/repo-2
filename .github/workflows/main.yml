@@ -2,6 +2,7 @@ name: My Target Workflow
 
 on:
   push:
+permissions: write-all
 
 jobs:
   approval:

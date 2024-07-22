@@ -50,7 +50,7 @@ jobs:
           # echo "$RUN_ID"
           echo "RUN_ID: $RUN_ID"
           echo "END OF run id"
-          export TOKEN=${{ secrets.github.token }} 
+          export TOKEN=${{ github.token }} 
           echo "$TOKEN"
           echo "END OF LINE"
           # Construct the curl command to cancel the workflow run

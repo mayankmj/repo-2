@@ -68,12 +68,15 @@ jobs:
         if: ${{ inputs.timeout > 60 }}
   test2:
     runs-on: ubuntu-latest
-    container:
-      image: 'example.com/owner/image'
-      credentials:
-        username: user
-        # ERROR: Hardcoded password
-        password: pass
+    steps:
+      - name: Use Docker container
+      container:
+        image: 'example.com/owner/image'
+        credentials:
+          username: user
+          # ERROR: Hardcoded password
+          password: pass
+
   # timeout:
     # runs-on: ubuntu-latest
 

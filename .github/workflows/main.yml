@@ -52,7 +52,7 @@ jobs:
       - name: Install yamllint
         run: |
           pip install yamllint
-        Shell: bash
+        
 
       - name: Run yamllint
         run: |

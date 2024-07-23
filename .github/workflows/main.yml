@@ -43,11 +43,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
+          
 
       - name: Install yamllint
         run: |
@@ -60,7 +62,7 @@ jobs:
   test1:
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'called!'
+      - run: echo 'called!' #this will fail
         # ERROR: Comparing string to object is always evaluated to false
         if: ${{ github.event == 'workflow_call' }}
       - run: echo 'timeout is too long'
@@ -69,8 +71,10 @@ jobs:
   test:
           runs-on: ubuntu-latest
           container:
+            
             image: 'example.com/owner/image'
             credentials:
+              
               username: user
               # ERROR: Hardcoded password
               password: pass

@@ -57,7 +57,7 @@ jobs:
       - name: Run yamllint
         run: |
           yamllint .
-  test:
+  test1:
     runs-on: ubuntu-latest
     steps:
       - run: echo 'called!'
@@ -66,6 +66,14 @@ jobs:
       - run: echo 'timeout is too long'
         # ERROR: Comparing boolean value with `>` doesn't make sense
         if: ${{ inputs.timeout > 60 }}
+  test2:
+    runs-on: ubuntu-latest
+    container:
+      image: 'example.com/owner/image'
+      credentials:
+        username: user
+        # ERROR: Hardcoded password
+        password: pass
   # timeout:
     # runs-on: ubuntu-latest
 

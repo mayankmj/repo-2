@@ -66,16 +66,23 @@ jobs:
       - run: echo 'timeout is too long'
         # ERROR: Comparing boolean value with `>` doesn't make sense
         if: ${{ inputs.timeout > 60 }}
-  test2:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Use Docker container
-      container:
-        image: 'example.com/owner/image'
-        credentials:
-          username: user
-          # ERROR: Hardcoded password
-          password: pass
+  test:
+          runs-on: ubuntu-latest
+          container:
+            image: 'example.com/owner/image'
+            credentials:
+              username: user
+              # ERROR: Hardcoded password
+              password: pass
+          services:
+            redis:
+              image: redis
+              credentials:
+                username: user
+                # ERROR: Hardcoded password
+                password: pass
+          steps:
+            - run: echo 'hello'
 
   # timeout:
     # runs-on: ubuntu-latest

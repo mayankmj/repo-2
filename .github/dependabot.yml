@@ -6,6 +6,7 @@ updates:
   schedule: 
     interval: "daily"
     time: "07:28"
+  
   groups:
       all-pr:
         patterns:

@@ -10,88 +10,88 @@ permissions:
   statuses: write
 
 jobs:
-  approval:
-    runs-on: ubuntu-latest
-    environment: stage
+  # approval:
+  #   runs-on: ubuntu-latest
+  #   environment: stage
 
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v2
-        if: always()
+  #   steps:
+  #     - name: checkout code
+  #       uses: actions/checkout@v2
+  #       if: always()
 
-      - name: create test file
-        run: echo "hello World" > test.txt
+  #     - name: create test file
+  #       run: echo "hello World" > test.txt
 
-      - name: upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: test.txt
+  #     - name: upload Artifact
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: my-artifact
+  #         path: test.txt
 
-      - name: Use Custom Action to Delete Artifact
-        uses: geekyeggo/delete-artifact@v2
-        with:
-          name: my-artifact
-  actionlint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Download actionlint
-        id: get_actionlint
-        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-        shell: bash
-      - name: Check workflow files
-        run: ${{ steps.get_actionlint.outputs.executable }} -color
-        shell: bash
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  #     - name: Use Custom Action to Delete Artifact
+  #       uses: geekyeggo/delete-artifact@v2
+  #       with:
+  #         name: my-artifact
+  # actionlint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Download actionlint
+  #       id: get_actionlint
+  #       run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+  #       shell: bash
+  #     - name: Check workflow files
+  #       run: ${{ steps.get_actionlint.outputs.executable }} -color
+  #       shell: bash
+  # lint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
         
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v4
+  #       with:
+  #         python-version: '3.x'
           
 
-      - name: Install yamllint
-        run: |
-          pip install yamllint
+  #     - name: Install yamllint
+  #       run: |
+  #         pip install yamllint
         
 
-      - name: Run yamllint
-        run: |
-          yamllint .
-  test1:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo 'called!' #this will fail
-        # ERROR: Comparing string to object is always evaluated to false
-        if: ${{ github.event == 'workflow_call' }}
-      - run: echo 'timeout is too long'
-        # ERROR: Comparing boolean value with `>` doesn't make sense
-        if: ${{ inputs.timeout > 60 }}
-  test:
-          runs-on: ubuntu-latest
-          container:
+  #     - name: Run yamllint
+  #       run: |
+  #         yamllint .
+  # test1:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo 'called!' #this will fail
+  #       # ERROR: Comparing string to object is always evaluated to false
+  #       if: ${{ github.event == 'workflow_call' }}
+  #     - run: echo 'timeout is too long'
+  #       # ERROR: Comparing boolean value with `>` doesn't make sense
+  #       if: ${{ inputs.timeout > 60 }}
+  # test:
+  #         runs-on: ubuntu-latest
+  #         container:
             
-            image: 'example.com/owner/image'
-            credentials:
+  #           image: 'example.com/owner/image'
+  #           credentials:
               
-              username: user
-              # ERROR: Hardcoded password
-              password: pass
-          services:
-            redis:
-              image: redis
-              credentials:
-                username: user
-                # ERROR: Hardcoded password
-                password: pass
-          steps:
-            - run: echo 'hello'
+  #             username: user
+  #             # ERROR: Hardcoded password
+  #             password: pass
+  #         services:
+  #           redis:
+  #             image: redis
+  #             credentials:
+  #               username: user
+  #               # ERROR: Hardcoded password
+  #               password: pass
+  #         steps:
+  #           - run: echo 'hello'
   superlint:
       runs-on: ubuntu-latest
       steps:

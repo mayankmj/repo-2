@@ -92,7 +92,7 @@ jobs:
                 password: pass
           steps:
             - run: echo 'hello'
-    superlint:
+  superlint:
       runs-on: ubuntu-latest
       steps:
       - name: Checkout code

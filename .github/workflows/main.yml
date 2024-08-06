@@ -1,145 +1,176 @@
-name: My Target Workflow
+# name: My Target Workflow
 
-on:
-  push:
-# permissions: write-all
-permissions:
-  contents: read
-  packages: read
-  # To report GitHub Actions status checks
-  statuses: write
+# on:
+#   push:
+# # permissions: write-all
+# permissions:
+#   contents: read
+#   packages: read
+#   # To report GitHub Actions status checks
+#   statuses: write
 
-jobs:
-  approval:
-    runs-on: ubuntu-latest
-    environment: stage
+# jobs:
+#   # approval:
+#   #   runs-on: ubuntu-latest
+#   #   environment: stage
 
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v2
-        if: always()
+#   #   steps:
+#   #     - name: checkout code
+#   #       uses: actions/checkout@v2
+#   #       if: always()
 
-      - name: create test file
-        run: echo "hello World" > test.txt
+#   #     - name: create test file
+#   #       run: echo "hello World" > test.txt
 
-      - name: upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: test.txt
+#   #     - name: upload Artifact
+#   #       uses: actions/upload-artifact@v2
+#   #       with:
+#   #         name: my-artifact
+#   #         path: test.txt
 
-      - name: Use Custom Action to Delete Artifact
-        uses: geekyeggo/delete-artifact@v2
-        with:
-          name: my-artifact
-  actionlint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Download actionlint
-        id: get_actionlint
-        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-        shell: bash
-      - name: Check workflow files
-        run: ${{ steps.get_actionlint.outputs.executable }} -color
-        shell: bash
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+#   #     - name: Use Custom Action to Delete Artifact
+#   #       uses: geekyeggo/delete-artifact@v2
+#   #       with:
+#   #         name: my-artifact
+#   # actionlint:
+#   #   runs-on: ubuntu-latest
+#   #   steps:
+#   #     - uses: actions/checkout@v4
+#   #     - name: Download actionlint
+#   #       id: get_actionlint
+#   #       run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+#   #       shell: bash
+#   #     - name: Check workflow files
+#   #       run: ${{ steps.get_actionlint.outputs.executable }} -color
+#   #       shell: bash
+#   # lint:
+#   #   runs-on: ubuntu-latest
+#   #   steps:
+#   #     - name: Checkout code
+#   #       uses: actions/checkout@v3
         
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+#   #     - name: Set up Python
+#   #       uses: actions/setup-python@v4
+#   #       with:
+#   #         python-version: '3.x'
           
 
-      - name: Install yamllint
-        run: |
-          pip install yamllint
+#   #     - name: Install yamllint
+#   #       run: |
+#   #         pip install yamllint
         
 
-      - name: Run yamllint
-        run: |
-          yamllint .
-  test1:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo 'called!' #this will fail
-        # ERROR: Comparing string to object is always evaluated to false
-        if: ${{ github.event == 'workflow_call' }}
-      - run: echo 'timeout is too long'
-        # ERROR: Comparing boolean value with `>` doesn't make sense
-        if: ${{ inputs.timeout > 60 }}
-  test:
-          runs-on: ubuntu-latest
-          container:
+#   #     - name: Run yamllint
+#   #       run: |
+#   #         yamllint .
+#   # test1:
+#   #   runs-on: ubuntu-latest
+#   #   steps:
+#   #     - run: echo 'called!' #this will fail
+#   #       # ERROR: Comparing string to object is always evaluated to false
+#   #       if: ${{ github.event == 'workflow_call' }}
+#   #     - run: echo 'timeout is too long'
+#   #       # ERROR: Comparing boolean value with `>` doesn't make sense
+#   #       if: ${{ inputs.timeout > 60 }}
+#   # test:
+#   #         runs-on: ubuntu-latest
+#   #         container:
             
-            image: 'example.com/owner/image'
-            credentials:
+#   #           image: 'example.com/owner/image'
+#   #           credentials:
               
-              username: user
-              # ERROR: Hardcoded password
-              password: pass
-          services:
-            redis:
-              image: redis
-              credentials:
-                username: user
-                # ERROR: Hardcoded password
-                password: pass
-          steps:
-            - run: echo 'hello'
-  superlint:
-      runs-on: ubuntu-latest
-      steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-            fetch-depth: 0
-      
-      - name: Super-linter
-        uses: super-linter/super-linter@v6.7.0 
-        env:
-          # To report GitHub Actions status checks
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#   #             username: user
+#   #             # ERROR: Hardcoded password
+#   #             password: pass
+#   #         services:
+#   #           redis:
+#   #             image: redis
+#   #             credentials:
+#   #               username: user
+#   #               # ERROR: Hardcoded password
+#   #               password: pass
+#   #         steps:
+#   #           - run: echo 'hello'
+#   # superlint:
+#   #     runs-on: ubuntu-latest
+#   #     steps:
+#   #     - name: Checkout code
+#   #       uses: actions/checkout@v3
+#   #       with:
+#   #           fetch-depth: 0
+  
+  
+#   name: Falcon API Request
 
+# on:
+#   push:
+#     branches:
+#       - main
 
-  #timeout:
-    #runs-on: ubuntu-latest
+# jobs:
+#   request:
+#     runs-on: ubuntu-latest
 
-    # steps:
-    #   - name: Set start time
-    #     id: set_start_time
-    #     run: echo "##[set-output name=start_time]$(date +%s)"
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v3
 
-    #   - name: Wait for 30 seconds
-    #     run: sleep 30s
+#     - name: Make Falcon API Request
+#       env:
+#         FALCON_CLIENT_ID: ${{ secrets.FALCON_CLIENT_ID }}
+#         FALCON_CLIENT_SECRET: ${{ secrets.FALCON_CLIENT_SECRET }}
+#         FALCON_CID: ${{ secrets.FALCON_CID }}
+#       run: |
+#         response=$(curl -X POST "https://api.crowdstrike.com/your-api-endpoint" \
+#           -H "Content-Type: application/json" \
+#           -d '{
+#             "client_id": "'"$FALCON_CLIENT_ID"'",
+#             "client_secret": "'"$FALCON_CLIENT_SECRET"'",
+#             "cid": "'"$FALCON_CID"'"
+#           }')
 
-    #   - name: Check approval status
-    #     # uses: styfle/cancel-workflow-action@0.9.1
-    #     # with:
-    #     #   workflow_id: ${{ github.workflow_id }}
-    #     # if: ${{ failure() }}  # Execute only if the previous step failed (timeout)
-    #     run: |
-    #       echo "Approval job status check after timeout"
-    #       echo "Initiating cancellation of the workflow run..."
+#         echo "Response: $response"
+# #     - name: Super-linter
+#   #       uses: super-linter/super-linter@v6.7.0 
+#   #       env:
+#   #         # To report GitHub Actions status checks
+#   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
 
-    #       export RUN_ID=${{ github.run_id }}
-    #       # echo "$RUN_ID"
-    #       echo "RUN_ID: $RUN_ID"
-    #       echo "END OF run id"
-    #       export TOKEN=${{ github.token }}
-    #       echo "$TOKEN"                                   
-    #       echo "END OF LINE"
-    #       curl -L \
-    #         -X POST \
-    #         -H "Accept: application/vnd.github.v3+json" \
-    #         -H "Authorization: Bearer $TOKEN" \
-    #         -H "X-GitHub-Api-Version: 2022-11-28" \
-    #         "https://api.github.com/repos/mayankmj/repo-2/actions/runs/$RUN_ID/cancel"
+#   #timeout:
+#     #runs-on: ubuntu-latest
 
-    #       exit 1  # Exit with an error code to force cancel the workflow
+#     # steps:
+#     #   - name: Set start time
+#     #     id: set_start_time
+#     #     run: echo "##[set-output name=start_time]$(date +%s)"
+
+#     #   - name: Wait for 30 seconds
+#     #     run: sleep 30s
+
+#     #   - name: Check approval status
+#     #     # uses: styfle/cancel-workflow-action@0.9.1
+#     #     # with:
+#     #     #   workflow_id: ${{ github.workflow_id }}
+#     #     # if: ${{ failure() }}  # Execute only if the previous step failed (timeout)
+#     #     run: |
+#     #       echo "Approval job status check after timeout"
+#     #       echo "Initiating cancellation of the workflow run..."
+
+#     #       export RUN_ID=${{ github.run_id }}
+#     #       # echo "$RUN_ID"
+#     #       echo "RUN_ID: $RUN_ID"
+#     #       echo "END OF run id"
+#     #       export TOKEN=${{ github.token }}
+#     #       echo "$TOKEN"                                   
+#     #       echo "END OF LINE"
+#     #       curl -L \
+#     #         -X POST \
+#     #         -H "Accept: application/vnd.github.v3+json" \
+#     #         -H "Authorization: Bearer $TOKEN" \
+#     #         -H "X-GitHub-Api-Version: 2022-11-28" \
+#     #         "https://api.github.com/repos/mayankmj/repo-2/actions/runs/$RUN_ID/cancel"
+
+#     #       exit 1  # Exit with an error code to force cancel the workflow
         

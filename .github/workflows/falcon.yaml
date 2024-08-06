@@ -19,12 +19,15 @@ jobs:
         FALCON_CLIENT_SECRET: "ier9dDPOpWcz7ybmZM1FCG8S0JHLju4sK5k36A2o"
         FALCON_CID: "A3839C9ECA014C70B7DB136F279AE499-C7"
       run: |
-        response=$(curl -X POST "https://api.crowdstrike.com/your-api-endpoint" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "client_id": "'"$FALCON_CLIENT_ID"'",
-            "client_secret": "'"$FALCON_CLIENT_SECRET"'",
-            "cid": "'"$FALCON_CID"'"
-          }')
+        # Fetch the latest sensor version with required environment variables
+        LATEST_SENSOR=$(FALCON_CLIENT_ID=$FALCON_CLIENT_ID \
+                        FALCON_CLIENT_SECRET=$FALCON_CLIENT_SECRET \
+                        FALCON_CID=$FALCON_CID \
+                        bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
+                        -t falcon-container | tail -1)
+        # Export the variable to the environment file
+        echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_ENV
 
-        echo "Response: $response"
+    - name: Print Latest Sensor Version
+      run: |
+        echo "The latest sensor version is $LATEST_SENSOR"

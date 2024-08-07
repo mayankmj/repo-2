@@ -52,7 +52,7 @@ jobs:
           --repository-name $REPO_NAME \
           --query 'imageDetails | sort_by(@, &imagePushedAt) | [-1].imageTags[0]' \
           --output text)
-        echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+        echo "ECR_TAG=$LATEST_TAG" >> $GITHUB_ENV
     # - name: Send Email Notification
     #   if: env.VERSION_MATCH != 'Versions match'
     #   uses: dawidd6/action-send-mail@v3

@@ -1,5 +1,4 @@
 name: Falcon API Request
-
 on:
   push:
     branches:
@@ -37,16 +36,35 @@ jobs:
           echo "Versions do not match" 
         fi
 
-    - name: Send Email Notification
-      if: env.VERSION_MATCH != 'Versions match'
-      uses: dawidd6/action-send-mail@v3
+    - name: Set up AWS CLI
+      uses: aws-actions/configure-aws-credentials@v2
       with:
-        server_address: sandbox.smtp.mailtrap.io
-        server_port: 587
-        subject: "Sensor Version did not match , Please re-upload the latest falcon image in ecr"
-        body: "The latest sensor version is $LATEST_SENSOR , Please update."
-        to: mayankjohari877@gmail.com # Replace with the recipient's email address
-        from: Mayank
+        aws-access-key-id: "AKIAZI2LDKXUFJTQKZGM"
+        aws-secret-access-key: "Ufti+XslPoUo3VnWVOc/gB0VALcrvGJAQV4yTh0/"
+        aws-region: us-east-1 
+
+    - name: Fetch Latest ECR Image Tag
+      id: fetch_tag
+      run: |
+        # Fetch the latest image tag from the ECR repository
+        REPO_NAME="acs-sso-efs-dev-ecr"
+        LATEST_TAG=$(aws ecr describe-images \
+          --repository-name $REPO_NAME \
+          --query 'imageDetails | sort_by(@, &imagePushedAt) | [-1].imageTags[0]' \
+          --output text)
+
+        # Set the fetched tag as an output
+        echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+    # - name: Send Email Notification
+    #   if: env.VERSION_MATCH != 'Versions match'
+    #   uses: dawidd6/action-send-mail@v3
+    #   with:
+    #     server_address: sandbox.smtp.mailtrap.io
+    #     server_port: 587
+    #     subject: "Version did not match , Please re-upload the latest falcon image in ecr"
+    #     body: "The latest sensor version is $LATEST_SENSOR , Please update."
+    #     to: mayankjohari877@gmail.com 
+    #     from: Mayank
     - name: Print Latest Sensor Version
       run: |
         echo "The latest sensor version is $LATEST_SENSOR"

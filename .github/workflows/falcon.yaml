@@ -25,7 +25,6 @@ jobs:
                         FALCON_CID=$FALCON_CID \
                         bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
                         -t falcon-container | tail -1)
-        # Export the variable to the environment file
         echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_ENV
 
     - name: Print Latest Sensor Version

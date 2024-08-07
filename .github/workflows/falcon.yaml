@@ -33,7 +33,7 @@ jobs:
         PREDEFINED_VERSION="1.2.3" 
         # Compare the fetched sensor version with the predefined version
         if [ "$LATEST_SENSOR" == "$PREDEFINED_VERSION" ]; then
-          echo "Versions match" >> $GITHUB_ENV
+          echo "Versions match" 
         else
           echo "Versions do not match" >> $GITHUB_ENV
         fi

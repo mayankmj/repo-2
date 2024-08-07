@@ -50,7 +50,7 @@ jobs:
     - name: Fetch latest image tag
       id: fetch-tag
       run: |
-        REPO_NAME=<your-repo-name> # Change to your ECR repository name
+        REPO_NAME=<your-repo-name>
         IMAGE_TAGS=$(aws ecr describe-images --repository-name $REPO_NAME --query 'imageDetails[*].[imageTags]' --output text)
         LATEST_TAG=$(echo $IMAGE_TAGS | tr ' ' '\n' | sort -V | tail -n 1)
         echo "::set-output name=tag::$LATEST_TAG""

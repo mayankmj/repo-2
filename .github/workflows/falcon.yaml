@@ -35,7 +35,7 @@ jobs:
         if [ "$LATEST_SENSOR" == "$PREDEFINED_VERSION" ]; then
           echo "Versions match" 
         else
-          echo "Versions do not match" >> $GITHUB_ENV
+          echo "Versions do not match" 
         fi
 
     - name: Send Email Notification

@@ -46,7 +46,7 @@ jobs:
     - name: Fetch Latest ECR Image Tag
       id: fetch_tag
       run: |
-        REPO_NAME="my-repo" # Replace with your ECR repository name
+        REPO_NAME= "acs-sso-efs-dev-ecr"   
 
         # Fetch the latest image tag
         LATEST_TAG=$(aws ecr describe-images \

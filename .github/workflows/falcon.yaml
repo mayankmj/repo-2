@@ -53,6 +53,10 @@ jobs:
           --query 'imageDetails | sort_by(@, &imagePushedAt) | [-1].imageTags[0]' \
           --output text)
         echo "ECR_TAG=$LATEST_TAG" >> $GITHUB_ENV
+    - name: Debug ECR Output
+      run: |
+        aws ecr describe-images --repository-name $REPO_NAME --output json
+
     # - name: Send Email Notification
     #   if: env.VERSION_MATCH != 'Versions match'
     #   uses: dawidd6/action-send-mail@v3

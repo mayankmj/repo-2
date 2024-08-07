@@ -46,16 +46,25 @@ jobs:
     - name: Fetch Latest ECR Image Tag
       id: fetch_tag
       run: |
-        # Fetch the latest image tag from the ECR repository
-        REPO_NAME="acs-sso-efs-dev-ecr"
+        REPO_NAME="my-repo" # Replace with your ECR repository name
+
+        # Fetch the latest image tag
         LATEST_TAG=$(aws ecr describe-images \
           --repository-name $REPO_NAME \
           --query 'imageDetails | sort_by(@, &imagePushedAt) | [-1].imageTags[0]' \
           --output text)
-        echo "ECR_TAG=$LATEST_TAG" >> $GITHUB_ENV
-    - name: Debug ECR Output
+        
+        # Check if the tag is empty
+        if [ "$LATEST_TAG" == "None" ] || [ -z "$LATEST_TAG" ]; then
+          echo "No tags found in the repository."
+          exit 1
+        fi
+        
+        echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+
+    - name: Print Latest Image Tag
       run: |
-        aws ecr describe-images --repository-name $REPO_NAME --output json
+        echo "The latest image tag is $LATEST_TAG"
 
     # - name: Send Email Notification
     #   if: env.VERSION_MATCH != 'Versions match'

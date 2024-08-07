@@ -27,6 +27,27 @@ jobs:
                         -t falcon-container | tail -1)
         echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_ENV
 
+    - name: Compare Sensor Version
+      id: compare
+      run: |
+        PREDEFINED_VERSION="1.2.3" 
+        # Compare the fetched sensor version with the predefined version
+        if [ "$LATEST_SENSOR" == "$PREDEFINED_VERSION" ]; then
+          echo "Versions match" >> $GITHUB_ENV
+        else
+          echo "Versions do not match" >> $GITHUB_ENV
+        fi
+
+    - name: Send Email Notification
+      if: env.VERSION_MATCH != 'Versions match'
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: sandbox.smtp.mailtrap.io
+        server_port: 587
+        subject: "Sensor Version did not match , Please re-upload the latest falcon image in ecr"
+        body: "The latest sensor version is $LATEST_SENSOR , Please update."
+        to: mayankjohari877@gmail.com # Replace with the recipient's email address
+        from: Mayank
     - name: Print Latest Sensor Version
       run: |
         echo "The latest sensor version is $LATEST_SENSOR"

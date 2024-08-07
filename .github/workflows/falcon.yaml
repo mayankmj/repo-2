@@ -43,21 +43,20 @@ jobs:
         aws-secret-access-key: "Ufti+XslPoUo3VnWVOc/gB0VALcrvGJAQV4yTh0/"
         aws-region: us-east-1 
 
-    - name: Fetch Latest ECR Image Tag
-      id: fetch_tag
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+      
+    - name: Fetch latest image tag
+      id: fetch-tag
       run: |
-        REPO_NAME= "acs-sso-efs-dev-ecr"   
-
-        LATEST_TAG=$(aws ecr describe-images \
-        --repository-name $REPO_NAME \
-         --query 'imageDetails | sort_by(@, &imagePushedAt) | [-1].imageTags[0]' \
-          --output text)
-        
-        # Check if the tag is empty
-        if [ "$LATEST_TAG" == "None" ] || [ -z "$LATEST_TAG" ]; then
-          echo "No tags found in the repository."
-          exit 1
-        fi
+        REPO_NAME=<your-repo-name> # Change to your ECR repository name
+        IMAGE_TAGS=$(aws ecr describe-images --repository-name $REPO_NAME --query 'imageDetails[*].[imageTags]' --output text)
+        LATEST_TAG=$(echo $IMAGE_TAGS | tr ' ' '\n' | sort -V | tail -n 1)
+        echo "::set-output name=tag::$LATEST_TAG""
+      
+    - name: Use the latest tag
+      run: echo "The latest tag is ${{ steps.fetch-tag.outputs.tag }}"
         
         echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
 

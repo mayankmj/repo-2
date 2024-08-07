@@ -48,10 +48,9 @@ jobs:
       run: |
         REPO_NAME= "acs-sso-efs-dev-ecr"   
 
-        # Fetch the latest image tag
         LATEST_TAG=$(aws ecr describe-images \
-          --repository-name $REPO_NAME \
-          --query 'imageDetails | sort_by(@, &imagePushedAt) | [-1].imageTags[0]' \
+        --repository-name $REPO_NAME \
+         --query 'imageDetails | sort_by(@, &imagePushedAt) | [-1].imageTags[0]' \
           --output text)
         
         # Check if the tag is empty

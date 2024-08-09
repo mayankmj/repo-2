@@ -42,9 +42,9 @@ jobs:
           repository-name: "falcon-sensor/falcon-container"
           image-tag: ${{steps.falcon.outputs.LATEST_SENSOR}}
     - name: Perform other action based on the output
-      if: ${{ steps.check-ecr-image.outputs.image-exists == '1' }}
+      if: ${{ steps.check-ecr-image.outputs.image-exists == '0' }}
       run: |
-        echo "Version match"  
+        echo "Version dont match"  
 
 
 

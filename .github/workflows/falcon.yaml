@@ -55,6 +55,9 @@ jobs:
         echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
         echo "::set-output name=latest_tag::$LATEST_TAG"
         # Set the fetched tag as an output
+    - name: Echo Latest ECR Image Tag
+      run: |
+        echo "Latest ECR Image Tag: ${{ needs.fetch_tag.outputs.latest_tag }}"
     # - name: Send Email Notification
     #   if: env.VERSION_MATCH != 'Versions match'
     #   uses: dawidd6/action-send-mail@v3

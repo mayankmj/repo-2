@@ -12,6 +12,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Make Falcon API Request
+      id: falcon
       env:
         FALCON_CLIENT_ID: "19e063dd2f834679b091dfea627450c5"
         FALCON_CLIENT_SECRET: "ier9dDPOpWcz7ybmZM1FCG8S0JHLju4sK5k36A2o"
@@ -23,18 +24,7 @@ jobs:
                         FALCON_CID=$FALCON_CID \
                         bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
                         -t falcon-container | tail -1)
-        echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_ENV
-
-    - name: Compare Sensor Version
-      id: compare
-      run: |
-        PREDEFINED_VERSION="1.2.3" 
-        # Compare the fetched sensor version with the predefined version
-        if [ "$LATEST_SENSOR" == "$PREDEFINED_VERSION" ]; then
-          echo "Versions match" 
-        else
-          echo "Versions do not match" 
-        fi
+        echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_OUTPUT
 
     - name: Set up AWS CLI
       uses: aws-actions/configure-aws-credentials@v2
@@ -50,11 +40,16 @@ jobs:
       with:
           region: us-east-1
           repository-name: "falcon-sensor/falcon-container"
-          image-tag: "7.18.0-5704.container.x86_64.Release.US-1"
+          image-tag: ${{steps.falcon.outputs.LATEST_SENSOR}}
     - name: Perform other action based on the output
       if: ${{ steps.check-ecr-image.outputs.image-exists == '1' }}
       run: |
         echo "Version match"  
+
+
+
+
+
     # - name: Fetch Latest ECR Image Tag
     #   id: get_tag
     #   run: |

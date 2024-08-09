@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Make Falcon API Request
       id: falcon
@@ -27,7 +27,7 @@ jobs:
         echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_OUTPUT
 
     - name: Set up AWS CLI
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: "ASIAS5ZSGPJ3D36SCRXR"
         aws-secret-access-key: "X5/OXhmhIytObNPahE3fWOzG+mSJB3i+BWw8wV4y"

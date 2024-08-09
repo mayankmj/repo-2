@@ -50,7 +50,7 @@ jobs:
       with:
           region: us-east-1
           repository-name: "falcon-sensor/falcon-container"
-          image-tag: "latest, 7.18.0-5704.container.x86_64.Release.US-1"
+          image-tag: "7.18.0-5704.container.x86_64.Release.US-1"
     - name: Perform other action based on the output
       if: ${{ steps.check-ecr-image.outputs.image-exists == '0' }}
       run: |

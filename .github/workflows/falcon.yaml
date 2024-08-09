@@ -39,8 +39,8 @@ jobs:
     - name: Set up AWS CLI
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        aws-access-key-id: "AKIAZI2LDKXUFJTQKZGM"
-        aws-secret-access-key: "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"
+        role-to-assume: "arn:aws:iam::201431874166:role/acs-sso-dev-oidcsrole"
+        role-session-name: "acsdevrolesession"
         aws-region: us-east-1 
 
     - name: Fetch Latest ECR Image Tag

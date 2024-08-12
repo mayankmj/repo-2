@@ -78,14 +78,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Update Secret Action
-      uses: punitkashyup/update-secret-action@v1 
-      with:
-        repository_owner: mayankmj
-        repository_name: repo-2
-        secret_name: FALCON_LATEST_VERSION
-        new_secret_value: 123
-        github_token: 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
+    - name: Create or update Github Actions secret
+      uses: ekowcharles/update-github-actions-secret@v1
+      env:
+        OWNER: mayankmj
+        REPOSITORY: repo-2
+        ACCESS_TOKEN: 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
+        SECRET_NAME: FALCON_LATEST_VERSION
+        SECRET_VALUE: "123"
  
   approval:
     runs-on: ubuntu-latest

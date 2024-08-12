@@ -60,17 +60,21 @@ jobs:
         else 
           echo "does not match"
         fi
+        
   update-secret:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Set up GitHub CLI
-      uses: actions/setup-gh@v2
-      with:
-        token: "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"
+   runs-on: ubuntu-latest
+   steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
     - name: Update secret
-      run: |
-        gh secret set FALCON_LATEST_VERSION --body "123" --repo ${{ github.repository }}
+      uses: docker://ghcr.io/cli/gh:latest
+      with:
+        args: |
+          bash -c "
+            gh auth login --with-token <<< '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}' &&
+            gh secret set FALCON_LATEST_VERSION --body '123' --repo ${{ github.repository }}
+          "
  
   approval:
     runs-on: ubuntu-latest

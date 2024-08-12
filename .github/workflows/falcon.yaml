@@ -60,6 +60,17 @@ jobs:
         else 
           echo "does not match"
         fi
+    - name: Fetch latest ECR image tag
+      id: fetch_tag
+      run: |
+          REPOSITORY_NAME="falcon-sensor/falcon-container"  
+          IMAGE_TAG=$(aws ecr list-images --repository-name $REPOSITORY_NAME --query 'imageIds[0].imageTag' --output text)
+          echo "Latest image tag is $IMAGE_TAG"
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+
+    - name: Use latest image tag
+      run: |
+          echo "Using image tag: ${{ env.IMAGE_TAG }}"
         
   update-secret:
    runs-on: ubuntu-latest

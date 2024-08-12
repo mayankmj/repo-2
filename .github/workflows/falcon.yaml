@@ -76,10 +76,10 @@ jobs:
    runs-on: ubuntu-latest
    steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
 
     - name: Update Secret Action
-      uses: punitkashyup/action-secrets-update@v1.0.6      
+      uses: punitkashyup/action-secrets-update@v1 
       with:
         repository_owner: mayankmj
         repository_name: repo-2

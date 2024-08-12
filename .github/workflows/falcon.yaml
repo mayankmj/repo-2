@@ -53,10 +53,20 @@ jobs:
   
     - name: Perform other action based on the output
       if: ${{ steps.check-ecr-image.outputs.image-exists == '0' }}
-      with:
-          environment: FALCON_UPDATION
       run: |
         echo "Version dont match"  
+
+    - name: Approval Job
+      if: ${{ steps.check-ecr-image.outputs.image-exists == '0' }}
+      with:
+          environment: FALCON_UPDATION 
+
+
+
+
+
+
+
 
 
 

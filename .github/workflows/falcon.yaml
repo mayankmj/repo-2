@@ -56,10 +56,14 @@ jobs:
       run: |
         echo "Version dont match"  
 
-    - name: Approval Job
-      if: ${{ steps.check-ecr-image.outputs.image-exists == '0' }}
-      with:
-          environment: FALCON_UPDATION 
+approval:
+    if: ${{ needs.configure-aws-credentials.outputs.image_exists == '0' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: stage
+    steps:
+      - name: Request Approval
+        run: echo "Waiting for approval..."
 
 
 

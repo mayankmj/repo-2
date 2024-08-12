@@ -61,6 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: stage
+    needs: request
     steps:
       - name: Request Approval
         run: echo "Approval job approved"

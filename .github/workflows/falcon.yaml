@@ -17,9 +17,9 @@ jobs:
     - name: Make Falcon API Request
       id: falcon
       env:
-        FALCON_CLIENT_ID: "19e063dd2f834679b091dfea627450c5"
-        FALCON_CLIENT_SECRET: "ier9dDPOpWcz7ybmZM1FCG8S0JHLju4sK5k36A2o"
-        FALCON_CID: "A3839C9ECA014C70B7DB136F279AE499-C7"
+        FALCON_CLIENT_ID: ${{ secrets.FALCON_CLIENT_ID }}
+        FALCON_CLIENT_SECRET: ${{secrets.FALCON_CLIENT_SECRET}}
+        FALCON_CID: ${{secrets.FALCON_CID}}
       run: |
         LATEST_SENSOR=$(FALCON_CLIENT_ID=$FALCON_CLIENT_ID \
                         FALCON_CLIENT_SECRET=$FALCON_CLIENT_SECRET \
@@ -31,10 +31,9 @@ jobs:
     - name: Set up AWS CLI
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        aws-access-key-id: "ASIAS5ZSGPJ3CSLB4TND"
-        aws-secret-access-key: "0uCwQ4HIW7OG6drEf7hom0sZkfqi8dn0Kd2oxHdt"
-        aws-session-token: "IQoJb3JpZ2luX2VjEJH//////////wEaCXVzLWVhc3QtMSJIMEYCIQCXiPFB9Y0xrcQLVhGjq3xhIB+ilLUK7AW+1+EQeUZrQQIhANg5aJAVfZOKyWASc35dPpEYzfzdQCas7Gat+s9fwb6OKoUDCIr//////////wEQARoMMjAxNDMxODc0MTY2IgzXoz40iy+zVzl5rrwq2QKKKZRLgF8D7b4MIIJD+jw/JEHvYP87qVh6noRiQuy8SMbajEKOjVKI5yeHJZBd+VilLjamnTsv4kAQaLUYB/YAaJbA3tAKuf8n7ICJHXfLiaRBOR0JeAlLYUSIe7xb11/JdmXrpFrJ04UMX5PfphkC/YuagQa9S5ioqlV5rcTTQsPM85TAjvwISVRvXeTZzExKG3TivBItjmkJxcINtIAipeG+FbU38FmiqUk06LYsfdOUtwNa3saPzrDpxaMY8TwRikkhL3D5Wm+A31DKaOk76xJ0kleaX4KFlafA8wc0MLZA0Da2cimqBU8ba4ZOB9Xa76Ov3GnxMb/kLr2XhqkjTxkh0FYfU6DYn3keLgoIUtNxx53I88iGiouT7HiBeBtkUADnK3bQdYUUmI6OClMw0P+EPY4Qg3iX0wAv0TqufLuwxRBLHZoAjWNgEAsioUuAae9vTNAuQ1Awv5nntQY6pgEfFIiarw0pBPZNYzr6fe7Kv8T8Lig2TrytrRJrBkPDTmUzBahM2BlgmejuquHqjCnIJlC5jvXKYlwAXT7LQ1Gny0x+9zEA4w1kRvwoFJGB4mF2texrt744yh1tu+A26S6LU6Oe0yfJ3O/+ctL1EMWCtvCQDcPUb2MloZXCpbq7s8zRwSdgbKNdZhbBfC8Kygpz5pL69tovuILiSX4SGwwwS1cJM/l4"
-        aws-region: us-east-1 
+        aws-access-key-id: ${{secrets.ACCESS_KEY}}
+        aws-secret-access-key: ${{secrets.SECRET_KEY}}
+        aws-session-token: ${{secrets.SESSION_TOKEN}}
           # Logging to AWS
     # - name: Configure AWS credentials
     #   uses: aws-actions/configure-aws-credentials@v4

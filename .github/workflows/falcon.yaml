@@ -56,21 +56,16 @@ jobs:
       run: |
         echo "Version dont match"  
 
-approval:
-    if: ${{ needs.configure-aws-credentials.outputs.image_exists == '0' }}
-    runs-on: ubuntu-latest
-    environment:
-      name: stage
-    steps:
-      - name: Request Approval
-        run: echo "Waiting for approval..."
+    - name: approval
+      uses: trstringer/manual-approval@v1.9.1
+      if: ${{ needs.configure-aws-credentials.outputs.image_exists == '0' }}
+      with:  
+          env: stage
 
 
 
 
-
-
-
+          
 
 
 

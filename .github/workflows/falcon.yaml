@@ -64,17 +64,14 @@ jobs:
   update-secret:
    runs-on: ubuntu-latest
    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Update secret
-      uses: docker://ghcr.io/cli/gh:latest
-      with:
-        args: |
-          bash -c "
-            gh auth login --with-token <<< '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}' &&
-            gh secret set FALCON_LATEST_VERSION --body '123' --repo ${{ github.repository }}
-          "
+     - name: Update Secret
+       uses: punitkashyup/update-secret-action@v1
+       with:
+        repository_owner: mayankmj
+        repository_name: repo-2
+        secret_name: FALCON_LATEST_VERSION${{ secrets.SECRET_NAME }}
+        new_secret_value: 123
+        github_token: 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
  
   approval:
     runs-on: ubuntu-latest

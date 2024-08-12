@@ -54,7 +54,7 @@ jobs:
   
     - name: Perform other action based on the output
       run: |
-        if [[ "${{ steps.check-ecr-image.outputs.image-exists }}" == "1" ]]; then 
+        if [[ "${{ steps.check-ecr-image.outputs.image-exists }}" == "0" ]]; then 
           echo "Version  match"
           exit 1 
         else 

@@ -53,9 +53,13 @@ jobs:
           image-tag: "7.18.0-5704.container.x86_64.Release.US-1"
   
     - name: Perform other action based on the output
-      if: ${{ steps.check-ecr-image.outputs.image-exists == '0' }}
       run: |
-        echo "Version dont match"  
+        if [[ "${{ steps.check-ecr-image.outputs.image-exists }}" == "0" ]]; then 
+          echo "Version  match"
+          exit 1 
+        else 
+          echo "does not match"
+        fi
  
   approval:
     runs-on: ubuntu-latest

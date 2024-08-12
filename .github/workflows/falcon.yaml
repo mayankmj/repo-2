@@ -56,11 +56,10 @@ jobs:
       if: ${{ steps.check-ecr-image.outputs.image-exists == '0' }}
       run: |
         echo "Version dont match"  
-
+ 
   approval:
-    if: ${{ needs.configure-aws-credentials.outputs.image_exists == '0' }}
     runs-on: ubuntu-latest
-    needs: request
+    needs: ['request']
     environment:
       name: stage
     steps:

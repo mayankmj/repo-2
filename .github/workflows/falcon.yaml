@@ -72,7 +72,7 @@ jobs:
       with:
         repository_owner: mayankmj
         repository_name: repo-2
-        secret_name: FALCON_LATEST_VERSION${{ secrets.SECRET_NAME }}
+        secret_name: FALCON_LATEST_VERSION
         new_secret_value: 123
         github_token: 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
  

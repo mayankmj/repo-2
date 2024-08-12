@@ -79,7 +79,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Update Secret Action
-      uses: punitkashyup/action-secrets-update@v1 
+      uses: punitkashyup/update-secret-action@v1 
       with:
         repository_owner: mayankmj
         repository_name: repo-2

@@ -28,20 +28,20 @@ jobs:
                         -t falcon-container | tail -1)
         echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_OUTPUT
 
-    # - name: Set up AWS CLI
-    #   uses: aws-actions/configure-aws-credentials@v2
-    #   with:
-    #     aws-access-key-id: "ASIAS5ZSGPJ3D36SCRXR"
-    #     aws-secret-access-key: "X5/OXhmhIytObNPahE3fWOzG+mSJB3i+BWw8wV4y"
-    #     aws-session-token: "IQoJb3JpZ2luX2VjEEgaCXVzLWVhc3QtMSJIMEYCIQCR7dPZQtgqIrmePGZpYqUUJtF/m+u7rQmh2nJUV+LvwwIhAP9mT23a1nE8DqaAMRTkxAUVIw+yrJupxdIE2P5DKvfaKvwCCEAQARoMMjAxNDMxODc0MTY2Igz9XCECykY9kabC4eEq2QKq5PNLwK3xClBMwrUzNT9Er17QxwHXIOu8p0E7HF5i7puSWrOm4QN5y/H4OUrGWZFJxiGEZKnd3eR+imTOoYlvjMCWt0X9/qlXfN8FWiPejSZSEkdlwKBpwkKVk4Hn3iAYJhRGkKjAtyHHNz/dma9ZYlYocF1tStnzNKrwzHbAusw29ecwWVJiIQDODj7UJGdLRXNl8y0Xfr13edS9bEHsNfEf5rqlUdiwHbRcGVlRFQFsuVD6UORIdnBHv2cHDdQ30AeT2eGHxQ314MZf3MHb5xM2BEP8rAWv1QkUSsWZ1g7Kdo+rAHiabb26GvJIVxkw2Uaz5rpLR0pmVHiKfZL5XfIm/cA5J28t6FRry+5iDTJ1QjUHhLjShVtyprL6wkLU83+K3lPUldDSE7spm3bUDNuH+mpJek5LUGW1KpTLv/GeAkKMNgd8czE4zY18Nez53iSGXKER7GUwt4bXtQY6pgESgnUoQzxYiBIEpCSQJB6i5qkO07ZWaAghM7U0ej2YGgeoxkuyHZyjD2bChIleQ2acw+l3kZ0tKs2QT0YTeF3RbysWmu/UlHs4CAEFwgzbWdRCCxGe5n5UxFBnGQw+BUk7sDnbgdJb+8tvT29v0av+41EEIRwLr3C3pv/mmKCWi/vNJ+DaCgXl2xyWq/QAzeqI4bz761iRJZQk0iFmXDR9OKFCqi8F"
-    #     aws-region: us-east-1 
-          # Logging to AWS
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
+    - name: Set up AWS CLI
+      uses: aws-actions/configure-aws-credentials@v2
       with:
-            role-to-assume: arn:aws:iam::201431874166:role/acs-sso-dev-oidcsrole
-            role-session-name: "acsdevrolesession"
-            aws-region: us-east-1
+        aws-access-key-id: "ASIAS5ZSGPJ3D36SCRXR"
+        aws-secret-access-key: "X5/OXhmhIytObNPahE3fWOzG+mSJB3i+BWw8wV4y"
+        aws-session-token: "IQoJb3JpZ2luX2VjEEgaCXVzLWVhc3QtMSJIMEYCIQCR7dPZQtgqIrmePGZpYqUUJtF/m+u7rQmh2nJUV+LvwwIhAP9mT23a1nE8DqaAMRTkxAUVIw+yrJupxdIE2P5DKvfaKvwCCEAQARoMMjAxNDMxODc0MTY2Igz9XCECykY9kabC4eEq2QKq5PNLwK3xClBMwrUzNT9Er17QxwHXIOu8p0E7HF5i7puSWrOm4QN5y/H4OUrGWZFJxiGEZKnd3eR+imTOoYlvjMCWt0X9/qlXfN8FWiPejSZSEkdlwKBpwkKVk4Hn3iAYJhRGkKjAtyHHNz/dma9ZYlYocF1tStnzNKrwzHbAusw29ecwWVJiIQDODj7UJGdLRXNl8y0Xfr13edS9bEHsNfEf5rqlUdiwHbRcGVlRFQFsuVD6UORIdnBHv2cHDdQ30AeT2eGHxQ314MZf3MHb5xM2BEP8rAWv1QkUSsWZ1g7Kdo+rAHiabb26GvJIVxkw2Uaz5rpLR0pmVHiKfZL5XfIm/cA5J28t6FRry+5iDTJ1QjUHhLjShVtyprL6wkLU83+K3lPUldDSE7spm3bUDNuH+mpJek5LUGW1KpTLv/GeAkKMNgd8czE4zY18Nez53iSGXKER7GUwt4bXtQY6pgESgnUoQzxYiBIEpCSQJB6i5qkO07ZWaAghM7U0ej2YGgeoxkuyHZyjD2bChIleQ2acw+l3kZ0tKs2QT0YTeF3RbysWmu/UlHs4CAEFwgzbWdRCCxGe5n5UxFBnGQw+BUk7sDnbgdJb+8tvT29v0av+41EEIRwLr3C3pv/mmKCWi/vNJ+DaCgXl2xyWq/QAzeqI4bz761iRJZQk0iFmXDR9OKFCqi8F"
+        aws-region: us-east-1 
+          # Logging to AWS
+    # - name: Configure AWS credentials
+    #   uses: aws-actions/configure-aws-credentials@v4
+    #   with:
+    #         role-to-assume: arn:aws:iam::201431874166:role/acs-sso-dev-oidcsrole
+    #         role-session-name: "acsdevrolesession"
+    #         aws-region: us-east-1
     
     - name: Fetching the ecr image tag
       id: check-ecr-image

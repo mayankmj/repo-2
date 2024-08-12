@@ -48,7 +48,7 @@ jobs:
       uses: mnmandahalf/check-ecr-image-exists@v0.1.5
       with:
           region: us-east-1
-          repository-name: "falcon-sensor/falcon-container"
+          repository-name: "acs-sso-javapoc-dev-ecr"
           image-tag: ${{steps.falcon.outputs.LATEST_SENSOR}}
           # image-tag: "7.18.0-5704.container.x86_64.Release.US-1"
   

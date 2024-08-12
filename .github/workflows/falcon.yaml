@@ -60,9 +60,9 @@ jobs:
   approval:
     if: ${{ needs.configure-aws-credentials.outputs.image_exists == '0' }}
     runs-on: ubuntu-latest
+    needs: request
     environment:
       name: stage
-    needs: request
     steps:
       - name: Request Approval
         run: echo "Approval job approved"

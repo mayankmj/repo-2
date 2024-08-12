@@ -64,9 +64,12 @@ jobs:
   update-secret:
    runs-on: ubuntu-latest
    steps:
-     - name: Update Secret
-       uses: punitkashyup/update-secret-action@v1
-       with:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Update Secret Action
+      uses: punitkashyup/action-secrets-update@v1.0.6      
+      with:
         repository_owner: mayankmj
         repository_name: repo-2
         secret_name: FALCON_LATEST_VERSION${{ secrets.SECRET_NAME }}

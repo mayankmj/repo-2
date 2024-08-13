@@ -25,7 +25,8 @@ jobs:
                     FALCON_CLIENT_SECRET=$FALCON_CLIENT_SECRET \
                     bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
                     --type falcon-sensor \
-                    --get-image-path | tail -1)
+                    --get-image-path )
+                    # | tail -1
             echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_ENV
     - name: Print Latest Sensor Version
       run: |

@@ -71,22 +71,7 @@ jobs:
     - name: Use latest image tag
       run: |
           echo "Using image tag: ${{ env.IMAGE_TAG }}"
-        
-  update-secret:
-   runs-on: ubuntu-latest
-   steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Create or update Github Actions secret
-      uses: ekowcharles/update-github-actions-secret@v1
-      env:
-        OWNER: mayankmj
-        REPOSITORY: repo-2
-        ACCESS_TOKEN: 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
-        SECRET_NAME: FALCON_LATEST_VERSION
-        SECRET_VALUE: "123"
- 
+      
   approval:
     runs-on: ubuntu-latest
     needs: ['request']
@@ -95,6 +80,21 @@ jobs:
     steps:
       - name: Request Approval
         run: echo "Approval job approved"
+
+  # update-secret:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v2
+
+  #   - name: Create or update Github Actions secret
+  #     uses: ekowcharles/update-github-actions-secret@v1
+  #     env:
+  #       OWNER: mayankmj
+  #       REPOSITORY: repo-2
+  #       ACCESS_TOKEN: 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
+  #       SECRET_NAME: FALCON_LATEST_VERSION
+  #       SECRET_VALUE: "123"
 
 
 

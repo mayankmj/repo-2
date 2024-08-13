@@ -63,7 +63,7 @@ jobs:
     - name: Fetch latest ECR image tag
       id: fetch_tag
       run: |
-          REPOSITORY_NAME="acs-sso-amapi-dev-ecrr"  
+          REPOSITORY_NAME="acs-sso-amapi-dev-ecr"  
           IMAGE_TAG=$(aws ecr list-images --repository-name $REPOSITORY_NAME --query 'imageIds[0].imageTag' --output text)
           echo "Latest image tag is $IMAGE_TAG"
           echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV

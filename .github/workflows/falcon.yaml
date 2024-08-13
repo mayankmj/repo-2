@@ -37,9 +37,8 @@ jobs:
           LATEST_SENSOR=$(FALCON_CLIENT_ID=$FALCON_CLIENT_ID \
                     FALCON_CLIENT_SECRET=$FALCON_CLIENT_SECRET \
                     bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
-                    --region us-1 \
                     --type falcon-sensor \
-                    --copy ${{ steps.login-ecr.outputs.registry }})
+                    --copy 201431874166.dkr.ecr.us-east-1.amazonaws.com
             echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_ENV
     - name: Print Latest Sensor Version
       run: |

@@ -32,7 +32,7 @@ jobs:
           LATEST_SENSOR=$(FALCON_CLIENT_ID=$FALCON_CLIENT_ID \
                     FALCON_CLIENT_SECRET=$FALCON_CLIENT_SECRET \
                     bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
-                    --region us-east-1 \
+                    --region us-1 \
                     --type falcon-sensor \
                     --get-image-path \
                     --copy 201431874166.dkr.ecr.us-east-1.amazonaws.com/falcon-test)

@@ -43,7 +43,7 @@ jobs:
     #         role-session-name: "acsdevrolesession"
     #         aws-region: us-east-1
     
-    - name: Fetching the ecr image tag
+    - name: Checking the existence of image tag in ecr
       id: check-ecr-image
       uses: mnmandahalf/check-ecr-image-exists@v0.1.5
       with:

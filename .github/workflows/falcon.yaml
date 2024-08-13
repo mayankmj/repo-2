@@ -25,7 +25,7 @@ jobs:
                         FALCON_CLIENT_SECRET=$FALCON_CLIENT_SECRET \
                         # FALCON_CID=$FALCON_CID \
                         bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
-                        -t falcon-container)
+                        -t falcon-container | tail)
         echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_OUTPUT
 
     - name: Set up AWS CLI

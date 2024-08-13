@@ -24,7 +24,7 @@ jobs:
         LATEST_SENSOR=$(FALCON_CLIENT_ID=$FALCON_CLIENT_ID \
                         FALCON_CLIENT_SECRET=$FALCON_CLIENT_SECRET \
                         # FALCON_CID=$FALCON_CID \
-                        --type falcon-sensor \
+                        # --type falcon-sensor \
                         --get-image-path \
                         bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
                         -t falcon-container | tail -1)

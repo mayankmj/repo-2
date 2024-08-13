@@ -39,7 +39,7 @@ jobs:
                     bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
                     --region us-1 \
                     --type falcon-sensor \
-                    --copy ${{ steps.login-ecr.outputs.registry }}/falcon-sensor)
+                    --copy ${{ steps.login-ecr.outputs.registry }})
             echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_ENV
     - name: Print Latest Sensor Version
       run: |

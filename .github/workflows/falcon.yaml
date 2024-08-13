@@ -13,6 +13,14 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      
+    - name: Set up AWS CLI
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{secrets.AWS_ACCESS_KEY}}
+        aws-secret-access-key: ${{secrets.AWS_SECRET_KEY}}
+        aws-session-token: ${{secrets.AWS_SESSION_TOKEN}}
+        aws-region: us-east-1 
 
     - name: Make Falcon API Request
       id: falcon
@@ -25,20 +33,14 @@ jobs:
                     FALCON_CLIENT_SECRET=$FALCON_CLIENT_SECRET \
                     bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
                     --type falcon-sensor \
-                    --get-image-path )
+                    --get-image-path \
+                    --copy https://us-east-1.console.aws.amazon.com/ecr/repositories/private/201431874166/falcon-sensor/falcon-container?region=us-east-1)
                     # | tail -1
             echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_ENV
     - name: Print Latest Sensor Version
       run: |
          echo "The latest sensor version is $LATEST_SENSOR"
 
-    - name: Set up AWS CLI
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{secrets.AWS_ACCESS_KEY}}
-        aws-secret-access-key: ${{secrets.AWS_SECRET_KEY}}
-        aws-session-token: ${{secrets.AWS_SESSION_TOKEN}}
-        aws-region: us-east-1 
           # Logging to AWS
     # - name: Configure AWS credentials
     #   uses: aws-actions/configure-aws-credentials@v4

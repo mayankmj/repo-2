@@ -27,7 +27,9 @@ jobs:
                     --type falcon-sensor \
                     --get-image-path | tail -1)
             echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_ENV
-
+    - name: Print Latest Sensor Version
+      run: |
+         echo "The latest sensor version is $LATEST_SENSOR"
 
     - name: Set up AWS CLI
       uses: aws-actions/configure-aws-credentials@v2

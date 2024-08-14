@@ -44,7 +44,6 @@ jobs:
     - name: Print Latest Sensor Version
       run: |
          echo "The latest sensor version is $LATEST_SENSOR"
-
           # Logging to AWS
     # - name: Configure AWS credentials
     #   uses: aws-actions/configure-aws-credentials@v4

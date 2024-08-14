@@ -38,8 +38,8 @@ jobs:
                     FALCON_CLIENT_SECRET=$FALCON_CLIENT_SECRET \
                     bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
                     --type falcon-sensor \
-                    --copy 201431874166.dkr.ecr.us-east-1.amazonaws.com
-                    -p aarch64)
+                    --copy 201431874166.dkr.ecr.us-east-1.amazonaws.com \
+                    --platform aarch64)
             # echo "LATEST_SENSOR=$LATEST_SENSOR" >> $GITHUB_ENV
     - name: Print Latest Sensor Version
       run: |

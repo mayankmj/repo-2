@@ -17,4 +17,4 @@ jobs:
         with:
           webhook_url: https://rtctek.webhook.office.com/webhookb2/025857bb-cddb-4074-8555-39164080f923@661531e5-7111-438e-9d28-7a630db4c065/IncomingWebhook/f14b7bbf76d046c0bf476c03a0d46b01/ef268240-4589-47f5-88b1-da061ee2a515
           webhook_secret: "123456789"
-          data: "Hello , testting webhook"
+          data: '{"weapon": "hammer", "drink": "beer"}'
